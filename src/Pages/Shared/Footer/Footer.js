@@ -6,7 +6,7 @@ const Footer = () => {
         <footer className="footer p-10 bg-neutral text-neutral-content">
         <div>
           <img src={logo} alt=''/>
-          <p>Better Life is<br/>Providing health service since 1992</p>
+          <p>Dr. Mosh is<br/>Providing health service since 1992 by Better Life</p>
         </div> 
         <div>
           <span className="footer-title">Social</span> 
