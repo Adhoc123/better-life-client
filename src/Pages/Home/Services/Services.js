@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Card from './Card';
 
 const Services = () => {
     const [services, setServices] = useState([]);
     useEffect(()=>{
-        fetch('services.json')
+        fetch('http://localhost:5000/services')
         .then(res => res.json())
         .then(data => setServices(data))
     },[])
@@ -20,6 +21,9 @@ const Services = () => {
                      service={service}
                      ></Card>)
                 }
+            </div>
+            <div className='grid justify-items-center m-7'>
+               <Link to='/totalservices'><button className='btn btn-primary '>See All</button></Link>
             </div>
         </div>
     );
