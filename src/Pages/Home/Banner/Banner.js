@@ -18,7 +18,7 @@ const Banner = () => {
               </h1>
             </div>
             <div className="absolute flex justify-between transform -translate-y-1/2 w-2/5 left-24 right-5 top-1/2 mt-24">
-              <p className='text-xl text-black font-semibold'>Hi, I am Dr. Mosh. Here, I am providing services like Medicine care, Sergery, Tele Medicine and so on. Check my services section to know more. Book your appropriate sevice.</p>
+              <p className='text-xl text-black font-semibold'>Hi, I am Dr. Mosh. Here, I am providing services like Medicine care, Surgery, Tele Medicine and so on. Check my services section to know more. Book your appropriate sevice.</p>
             </div>
         </div> 
         
