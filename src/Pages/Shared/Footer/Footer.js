@@ -3,7 +3,7 @@ import logo from '../../../Assets/logo.svg';
 
 const Footer = () => {
     return (
-        <footer className="footer p-10 bg-neutral text-neutral-content">
+        <footer className="footer p-10 bg-black text-white">
         <div>
           <img src={logo} alt=''/>
           <p>Dr. Mosh is<br/>Providing health service since 1992 by Better Life</p>
