@@ -14,9 +14,13 @@ const Card = ({service}) => {
         </PhotoProvider>    
         <div className="card-body">
             <h2 className="card-title">{name}</h2>
+
+            {/* slicing description into 100 characters */}
             <p>{description.slice(0,100)} . . .</p>
             <p className='text-2xl text-primary-600'>Price: {price}</p>
             <div className="card-actions justify-end">
+            
+            {/* This button will lead you to new route */}
             <Link to={`/services/${_id}`}>
               <button className="btn btn-primary">View Details</button>
             </Link>
