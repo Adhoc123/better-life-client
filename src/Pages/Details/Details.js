@@ -1,11 +1,17 @@
 import React from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
+import { PhotoProvider, PhotoView } from 'react-photo-view';
+import 'react-photo-view/dist/react-photo-view.css';
 
 const Details = () => {
     const {name, picture, description, price} = useLoaderData();
     return (
         <div className="card w-full bg-base-100 shadow-xl">
+        <PhotoProvider>
+        <PhotoView src={picture}>
         <figure><img src={picture} alt="Service" /></figure>
+        </PhotoView>
+        </PhotoProvider> 
         <div className="card-body">
             <h2 className="card-title">{name}</h2>
             <p>{description}</p>
