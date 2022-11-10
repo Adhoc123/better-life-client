@@ -4,8 +4,10 @@ import logo from '../../../Assets/logo.png';
 
 const Header = () => {
     const menuItems = <>
-       <li><Link to='/'>Home</Link></li>
-       <li><Link to='/totalservices'>Services</Link></li>
+       <li><Link className='font-semibold' to='/'>Home</Link></li>
+       <li><Link className='font-semibold' to='/totalservices'>Services</Link></li>
+       <li><Link className='font-semibold' to='/blogs'>Blogs</Link></li>
+       <li><Link className='font-semibold' to='/login'>Login</Link></li>
     </>
     return (
         <div className="navbar bg-base-100 mb-5 pt-12">
