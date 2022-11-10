@@ -2,9 +2,11 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../../Assets/logo.png';
 import { AuthContext } from '../../../Contexts/UserContext';
+import { faUser } from '@fortawesome/free-regular-svg-icons';
 
 const Header = () => {
     const {user, logOut} = useContext(AuthContext);
+    console.log(user)
     const menuItems = <>
        <li><Link className='font-semibold' to='/'>Home</Link></li>
        <li><Link className='font-semibold' to='/totalservices'>Services</Link></li>
@@ -22,8 +24,8 @@ const Header = () => {
        }
     </>
     return (
-        <div className="navbar bg-base-100 mb-5 pt-12">
-            <div className="navbar-start">
+        <div className="navbar bg-base-100 mb-5 pt-12 ">
+            <div className="">
                 <div className="dropdown">
                 <label tabIndex={0} className="btn btn-ghost lg:hidden">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
@@ -41,10 +43,19 @@ const Header = () => {
                     {menuItems}
                 </ul>
             </div>
-            <div className="navbar-end">
-                <a className="btn btn-outline btn-warning">Get a service</a>
+            <div className="avatar m-5">
+            <div className="w-8 rounded">
+                {
+                    user?.photoURL?
+                    <img src={user?.photoURL} alt="Tailwind-CSS-Avatar-component" />
+                    :
+                    <button><faUser></faUser></button>
+                }
+               
             </div>
-            <h1>{user?.email}</h1>
+            </div>
+            
+            <h1 className='ml-5'>{user?.displayName}</h1>
         </div>
     );
 };
