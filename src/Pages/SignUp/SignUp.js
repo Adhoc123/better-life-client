@@ -1,9 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../Contexts/UserContext';
 
 const SignUp = () => {
+    const {createUser} = useContext(AuthContext);
     const handleSignUp = event =>{
         event.preventDefault();
+        const form = event.target;
+        const name = form.name.value;
+        const email = form.email.value;
+        const password = form.password.value;
+        console.log(name, email, password);
+        createUser(email, password)
+        .then(result =>{
+            const user = result.user;
+            console.log(user);
+            form.reset();
+        })
+        .catch(err => console.error(err))
     }
     return (
         <div className="hero w-full">
@@ -27,7 +41,7 @@ const SignUp = () => {
                 <label className="label">
                     <span className="label-text">Password</span>
                 </label>
-                <input type="password" name='password' placeholder="password" className="input input-bordered" />
+                <input type="password" name='password' placeholder="password" className="input input-bordered" required />
         
                 </div>
                 <div className="form-control mt-6">
