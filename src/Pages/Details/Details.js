@@ -1,16 +1,32 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import 'react-photo-view/dist/react-photo-view.css';
 import { AuthContext } from '../../Contexts/UserContext';
+import { data } from 'autoprefixer';
+import Reviews from '../Reviews/Reviews';
 
 const Details = () => {
     const {_id, name, picture, description, price} = useLoaderData();
     const {user} = useContext(AuthContext);
-    console.log(user)
-
+    // console.log(user)
+    const [reviews, setReviews] = useState([]);
+    // console.log(reviews)
     ////Handling review section
-
+    const handleDelete = _id =>{
+        const proceed = window.confirm('Want to delete?');
+        fetch(`http://localhost:5000/reviews/${_id}`,{
+            method: 'DELETE'
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.deletedCount>0){
+                alert('Deleted Successfully')
+                const remaining = reviews.filter(rev => rev._id!==_id);
+                setReviews(remaining)
+            }
+        })
+    }
     const handleReview = event =>{
         event.preventDefault();
         const form = event.target;
@@ -18,7 +34,7 @@ const Details = () => {
         const img = user?.photoURL;
         const email = user?.email;
         const review = form.review.value;
-        console.log(name, img, review, email);
+        // console.log(name, img, review, email);
         
         ///Reviewer info section
 
@@ -31,7 +47,7 @@ const Details = () => {
 
         }
         ///Posting review to Database
-        
+
         fetch('http://localhost:5000/reviews', {
             method: 'POST',
             headers: {
@@ -41,7 +57,7 @@ const Details = () => {
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data);
+            // console.log(data);
             if(data.acknowledged){
                 // alert('Data Saved Successfully')
                 form.reset();
@@ -49,7 +65,12 @@ const Details = () => {
         })
         .catch(err => console.error(err))
     }
-    
+    useEffect(()=>{
+        fetch('http://localhost:5000/reviews')
+        .then(res => res.json())
+        .then(data => setReviews(data))
+    },[])
+
     return (
         <div className="card w-full bg-base-100 shadow-xl">
           {/* adding photo viewer */}
@@ -71,11 +92,43 @@ const Details = () => {
                 </div>
             </div>
             {/* Review Section */}
-            
-            <form onSubmit={handleReview} className='w-1/2 m-5'>
+            {
+                user?.uid?
+                <>
+                <form onSubmit={handleReview} className='w-1/2 m-5'>
                 <textarea name='review' className="textarea textarea-info w-full h-52 " placeholder="Write Your Review" required></textarea>
                 <input type='submit' value='Submit' className='btn btn-primary'/>
-            </form>
+                </form>
+                
+                {/* Review data */}
+                <div>
+                    <div>
+                        {
+                            reviews.map(review =><Reviews
+                            key={review._id}
+                            review={review}
+                            handleDelete={handleDelete}
+                            ></Reviews>)
+                        }
+                    </div>
+                </div>
+                </>
+                :
+                <>
+                   <h1 className='text-orange-600 font-bold m-5'>Please Login to add a review</h1>
+                   {/* Review data */}
+                    <div>
+                        <div>
+                            {
+                                reviews.map(review =><Reviews
+                                key={review._id}
+                                review={review}
+                                ></Reviews>)
+                            }
+                        </div>
+                    </div>
+                </>
+            }
             
         </div>
        
