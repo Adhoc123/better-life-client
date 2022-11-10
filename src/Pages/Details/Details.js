@@ -15,7 +15,7 @@ const Details = () => {
     ////Handling review section
     const handleDelete = _id =>{
         const proceed = window.confirm('Want to delete?');
-        fetch(`http://localhost:5000/reviews/${_id}`,{
+        fetch(`https://better-life-server.vercel.app/reviews/${_id}`,{
             method: 'DELETE'
         })
         .then(res => res.json())
@@ -48,7 +48,7 @@ const Details = () => {
         }
         ///Posting review to Database
 
-        fetch('http://localhost:5000/reviews', {
+        fetch('https://better-life-server.vercel.app/reviews', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -66,7 +66,7 @@ const Details = () => {
         .catch(err => console.error(err))
     }
     useEffect(()=>{
-        fetch('http://localhost:5000/reviews')
+        fetch('https://better-life-server.vercel.app/reviews')
         .then(res => res.json())
         .then(data => setReviews(data))
     },[])
