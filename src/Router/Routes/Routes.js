@@ -30,7 +30,7 @@ const router = createBrowserRouter([
             {
                 path: '/services/:id',
                 element: <Details></Details>,
-                loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`)
+                loader: ({params}) => fetch(`https://better-life-server.vercel.app/services/${params.id}`)
             },
             {
                 path: '/login',
@@ -47,7 +47,7 @@ const router = createBrowserRouter([
             {
                 path: '/reviews',
                 element: <PrivateRoutes><MyReviews></MyReviews></PrivateRoutes>,
-                loader: () => fetch('http://localhost:5000/reviews')
+                loader: () => fetch('https://better-life-server.vercel.app/reviews')
             },
             {
                 path: '/addService',
@@ -57,7 +57,7 @@ const router = createBrowserRouter([
             {
                 path: '/reviews',
                 element: <Details></Details>,
-                loader: () => fetch('http://localhost:5000/reviews')
+                loader: () => fetch('https://better-life-server.vercel.app/reviews')
             }
         ]
     }

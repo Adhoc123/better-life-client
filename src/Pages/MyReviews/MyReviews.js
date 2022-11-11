@@ -11,7 +11,7 @@ const MyReviews = () => {
     console.log(user)
     ////fetching data based on user mail for filter
     useEffect(()=>{
-        fetch(`http://localhost:5000/reviews?email=${user?.email}`)
+        fetch(`https://better-life-server.vercel.app/reviews?email=${user?.email}`)
         .then(res => res.json())
         .then(data => setReviews(data))
     },[user?.email])
@@ -19,7 +19,7 @@ const MyReviews = () => {
     ///deleting specific user id
     const handleDelete = _id =>{
         const proceed = window.confirm('Want to delete?');
-        fetch(`http://localhost:5000/reviews/${_id}`,{
+        fetch(`https://better-life-server.vercel.app/reviews/${_id}`,{
             method: 'DELETE'
         })
         .then(res => res.json())

@@ -19,7 +19,7 @@ const Details = () => {
         const proceed = window.confirm('Want to delete?');
 
         ///implementing delete method by fetch
-        fetch(`http://localhost:5000/reviews/${_id}`,{
+        fetch(`https://better-life-server.vercel.app/reviews/${_id}`,{
             method: 'DELETE'
         })
         .then(res => res.json())
@@ -52,7 +52,7 @@ const Details = () => {
         }
         ///Posting review to Database
         console.log(reviewInfo)
-        fetch('http://localhost:5000/reviews', {
+        fetch('https://better-life-server.vercel.app/reviews', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -72,7 +72,7 @@ const Details = () => {
 
     ///fetching data based on id
     useEffect(()=>{
-        fetch(`http://localhost:5000/reviews?serviceId=${_id}`)
+        fetch(`https://better-life-server.vercel.app/reviews?serviceId=${_id}`)
         .then(res => res.json())
         .then(data => setReviews(data))
     },[])

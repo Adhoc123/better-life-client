@@ -25,7 +25,7 @@ const AddService = () => {
             name, picture, price, description, email
          }
          ///posting data to database
-         fetch('http://localhost:5000/addService', {
+         fetch('https://better-life-server.vercel.app/addService', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
