@@ -8,6 +8,8 @@ import Reviews from '../Reviews/Reviews';
 
 const Details = () => {
     const {_id, name, picture, description, price} = useLoaderData();
+    const {serviceId} = useLoaderData();
+    console.log(useLoaderData())
     const {user} = useContext(AuthContext);
     // console.log(user)
     const [reviews, setReviews] = useState([]);
@@ -15,7 +17,9 @@ const Details = () => {
     ////Handling review section
     const handleDelete = _id =>{
         const proceed = window.confirm('Want to delete?');
-        fetch(`https://better-life-server.vercel.app/reviews/${_id}`,{
+
+        ///implementing delete method by fetch
+        fetch(`http://localhost:5000/reviews/${_id}`,{
             method: 'DELETE'
         })
         .then(res => res.json())
@@ -30,7 +34,7 @@ const Details = () => {
     const handleReview = event =>{
         event.preventDefault();
         const form = event.target;
-        const name = user?.displayName;
+        const fname = user?.displayName;
         const img = user?.photoURL;
         const email = user?.email;
         const review = form.review.value;
@@ -41,14 +45,14 @@ const Details = () => {
         const reviewInfo = {
             serviceId: _id,
             reviewerImage: img,
-            reviewerName: name,
-            reviewerEmail: email,
-            reviewText: review
-
+            reviewerName: fname,
+            email,
+            reviewText: review,
+            name
         }
         ///Posting review to Database
-
-        fetch('https://better-life-server.vercel.app/reviews', {
+        console.log(reviewInfo)
+        fetch('http://localhost:5000/reviews', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -65,8 +69,10 @@ const Details = () => {
         })
         .catch(err => console.error(err))
     }
+
+    ///fetching data based on id
     useEffect(()=>{
-        fetch('https://better-life-server.vercel.app/reviews')
+        fetch(`http://localhost:5000/reviews?serviceId=${_id}`)
         .then(res => res.json())
         .then(data => setReviews(data))
     },[])
@@ -93,6 +99,7 @@ const Details = () => {
             </div>
             {/* Review Section */}
             {
+                ///conditional rendering
                 user?.uid?
                 <>
                 <form onSubmit={handleReview} className='w-1/2 m-5'>
@@ -107,7 +114,7 @@ const Details = () => {
                             reviews.map(review =><Reviews
                             key={review._id}
                             review={review}
-                            handleDelete={handleDelete}
+                            // handleDelete={handleDelete}
                             ></Reviews>)
                         }
                     </div>
@@ -120,6 +127,7 @@ const Details = () => {
                     <div>
                         <div>
                             {
+                                //////maping over all reviews
                                 reviews.map(review =><Reviews
                                 key={review._id}
                                 review={review}

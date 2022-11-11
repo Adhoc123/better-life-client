@@ -2,33 +2,75 @@ import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/UserContext';
+import Spinner from 'react-bootstrap/Spinner';
 
 const Login = () => {
-    const {signIn, providerLogin} = useContext(AuthContext);
+    const {signIn, providerLogin, loading} = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
     const googleProvider = new GoogleAuthProvider();
-
+    if(loading){
+        return <Spinner animation="border" variant="primary" />
+    }
     const handleLogin = event =>{
         event.preventDefault();
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
         console.log(email, password)
+
+        ///spinner is added 
+        if(loading){
+            return <Spinner animation="border" variant="primary" />
+        }
+        ///logging using email and password
         signIn(email, password)
         .then(result =>{
+            if(loading){
+                return <Spinner animation="border" variant="primary" />
+            }
             const user = result.user;
             console.log(user);
+            
+        //     const currentUser = {
+        //         email: user.email
+        //     }
+        //     ////jwt token
+        //     fetch('http://localhost:5000/jwt', {
+        //         method: 'POST',
+        //         headers: {
+        //             'content-type': 'application/json'
+        //         },
+        //         body: JSON.stringify(currentUser)
+        //     })
+        //     .then(res => res.json())
+        //     .then(data => {
+        //           console.log(data);
+        //           localStorage.setItem('better-life', data.token)
+        //     // if(data.acknowledged){
+        //     //     handleToast()
+        //     //     form.reset();
+        //     // }
+        // })
+        // .catch(err => console.error(err))
             form.reset();
             navigate(from, {replace: true});
+
         })
         .catch(err => console.error(err))
     }
     const handleGoogle = ()=>{
         // event.preventDefault();
+        if(loading){
+            return <Spinner animation="border" variant="primary" />
+        }
+        ///login section using google auth
         providerLogin(googleProvider)
         .then(result =>{
+            if(loading){
+                return <Spinner animation="border" variant="primary" />
+            }
             const user = result.user;
             console.log(user);
             navigate(from, {replace: true});

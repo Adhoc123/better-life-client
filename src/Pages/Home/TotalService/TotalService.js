@@ -4,11 +4,13 @@ import Card from './Card';
 
 const TotalService = () => {
     const [items, setItems] = useState([]);
+
     useEffect(()=>{
-        fetch('https://better-life-server.vercel.app/totalservices')
+        fetch('http://localhost:5000/totalservices')
         .then(res => res.json())
         .then(data => setItems(data))
     },[])
+    items.sort((a, b) => b - a);
     return (
         <div>
             
@@ -17,6 +19,7 @@ const TotalService = () => {
             </div>
             <div className='ml-5 grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-5'>
                 {
+                     
                      items.map(item=><Card
                      key={item._id}
                      item={item}

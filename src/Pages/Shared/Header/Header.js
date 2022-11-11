@@ -6,7 +6,7 @@ import { faUser } from '@fortawesome/free-regular-svg-icons';
 
 const Header = () => {
     const {user, logOut} = useContext(AuthContext);
-    // console.log(user)
+    console.log(user)
     const menuItems = <>
        <li><Link className='font-semibold' to='/'>Home</Link></li>
        <li><Link className='font-semibold' to='/totalservices'>Services</Link></li>

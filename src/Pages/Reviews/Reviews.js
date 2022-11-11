@@ -5,7 +5,7 @@ const Reviews = ({review, handleDelete}) => {
     const {_id, reviewerImage, reviewerName, reviewText} = review; 
     const {user} = useContext(AuthContext);
     // console.log(user)
-     console.log(review)
+    //  console.log(review)
    
     return (
            
@@ -14,13 +14,6 @@ const Reviews = ({review, handleDelete}) => {
         <div className="card-body">
           <h2 className="card-title">{reviewerName}</h2>
           <p>{reviewText}</p>
-          {
-             
-          }
-          <div className="card-actions justify-end">
-            <button onClick={()=>handleDelete(_id)} className="btn btn-primary">Delete</button>
-            <button className="btn btn-primary">Edit</button>
-          </div>
         </div>
       </div>
             

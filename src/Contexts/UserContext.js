@@ -8,6 +8,9 @@ const auth = getAuth(app);
 const UserContext = ({children}) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+
+    ///creating auth for create, signin and login, logout
+
     const createUser = (email, password) =>{
         setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password)
@@ -20,15 +23,18 @@ const UserContext = ({children}) => {
         setLoading(true);
         return signOut(auth);
     }
+
+    ///for google authentication
     const providerLogin = (provider) =>{
         return signInWithPopup(auth, provider)
     }
     const updateUserProfile = (profile) =>{
         return updateProfile(auth.currentUser, profile);
     }
+    ///for login into the same page where login page popped up
     useEffect(()=>{
         const unSubscribe = onAuthStateChanged(auth, currentUser =>{
-            console.log(currentUser)
+            // console.log(currentUser)
             setUser(currentUser)
             setLoading(false)
         })

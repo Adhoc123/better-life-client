@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/UserContext';
-
+import Spinner from 'react-bootstrap/Spinner';
 const SignUp = () => {
-    const {createUser, updateUserProfile} = useContext(AuthContext);
+    const {createUser, updateUserProfile, loading} = useContext(AuthContext);
     const handleSignUp = event =>{
         event.preventDefault();
         const form = event.target;
@@ -12,6 +12,9 @@ const SignUp = () => {
         const photoURL = form.photoURL.value;
         const password = form.password.value;
         // console.log(name, email, password);
+        if(loading){
+             return <Spinner animation="border" variant="primary" />
+        }
         createUser(email, password)
         .then(result =>{
             const user = result.user;

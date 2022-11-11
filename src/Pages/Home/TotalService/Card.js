@@ -25,6 +25,7 @@ const Card = ({item}) => {
             </Link>
             </div>
         </div>
+        
         </div>
     );
 };
